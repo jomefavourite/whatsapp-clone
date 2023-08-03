@@ -1,4 +1,5 @@
 {
+  "scheme": "whatsapp-clone",
   "expo": {
     "name": "whatsapp-clone",
     "slug": "whatsapp-clone",
@@ -25,6 +26,15 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "experiments": {
+      "tsconfigPaths": true
+    },
+    "plugins": [
+      "expo-router"
+    ]
+  },
+  "web": {
+    "bundler": "metro"
   }
 }
