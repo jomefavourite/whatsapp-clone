@@ -1,9 +1,9 @@
 {
-  "scheme": "whatsapp-clone",
   "expo": {
     "name": "whatsapp-clone",
     "slug": "whatsapp-clone",
     "version": "1.0.0",
+    "scheme": "whatsapp-clone",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -25,6 +25,7 @@
       }
     },
     "web": {
+      "bundler": "metro",
       "favicon": "./assets/favicon.png"
     },
     "experiments": {
@@ -34,7 +35,5 @@
       "expo-router"
     ]
   },
-  "web": {
-    "bundler": "metro"
-  }
+
 }

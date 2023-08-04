@@ -1,14 +1,18 @@
 import Header from 'components/Header';
-import { Slot } from 'expo-router';
+import { Tabs, Slot, Stack } from 'expo-router';
+import { GluestackUIProvider } from 'components';
+import { config } from 'gluestack-ui.config';
+import { StatusBar } from 'expo-status-bar';
 
-import './global.css';
+// import './styles/global.css';
 
 export default function HomeLayout() {
   return (
-    <>
-      <Header />
-      <Slot />
-      {/* <Footer /> */}
-    </>
+    <GluestackUIProvider config={config.theme}>
+      <StatusBar style='auto' />
+      <Stack>
+        <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+      </Stack>
+    </GluestackUIProvider>
   );
 }
