@@ -1,11 +1,14 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Box, Heading, Text } from './core';
+import { Feather, Ionicons } from '@expo/vector-icons';
 
-function Header() {
+function Header({ name }: { name: string }) {
   return (
-    <View>
-      <Text>Header</Text>
-    </View>
+    <Box w={'$full'} className='bg-black'>
+      <Heading color='#fff' textAlign='center'>
+        {name}
+      </Heading>
+    </Box>
   );
 }
 

@@ -4,18 +4,18 @@ import { useLocalSearchParams } from 'expo-router';
 
 import {
   FlatList,
-  StatusBar,
-  SafeAreaView,
   StyleSheet,
   Dimensions,
   Animated,
   ScrollView,
   ImageBackground,
 } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 // import { LinearGradient } from 'expo-linear-gradient';
 import { faker } from '@faker-js/faker/locale/de';
-import { Box, Button, Input } from 'components';
+import { Box, Button, Input } from '../../../../components';
 import { Ionicons, Feather } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 // const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
@@ -38,8 +38,11 @@ export default function ChatPage() {
 
   const { slug } = useLocalSearchParams();
 
+  console.log(slug);
+
   return (
     <>
+      <StatusBar style='auto' />
       <Animated.ScrollView
         style={{ backgroundColor: '#252525' }}
         onScroll={Animated.event(
@@ -48,8 +51,8 @@ export default function ChatPage() {
         )}
       >
         <ImageBackground
-          source={require('../../../assets/whatsapp-bg.png')}
-          resizeMode='stretch'
+          source={require('../../../../assets/whatsapp-bg.png')}
+          resizeMode='cover'
           style={{ flex: 1, width: width, height: height }}
           imageStyle={{ opacity: 0.2 }}
         >
@@ -96,6 +99,7 @@ export default function ChatPage() {
           </View>
         </ImageBackground>
       </Animated.ScrollView>
+
       <Box bgColor='#010101' flexDirection='row' gap={5} p={10}>
         <Button variant='link'>
           <Ionicons name='attach' size={24} color='#fff' />

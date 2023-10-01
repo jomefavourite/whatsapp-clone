@@ -2,6 +2,7 @@
   "name": "whatsapp-clone",
   "version": "1.0.0",
   "main": "expo-router/entry",
+  "scheme": "whatsapp-clone",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -10,6 +11,7 @@
     "ts:check": "tsc"
   },
   "dependencies": {
+    "@clerk/clerk-expo": "^0.19.3",
     "@expo/html-elements": "latest",
     "@expo/vector-icons": "^13.0.0",
     "@gluestack-style/animation-plugin": "latest",
@@ -19,10 +21,12 @@
     "@gluestack-ui/provider": "latest",
     "@gluestack-ui/tabs": "latest",
     "@types/react": "~18.2.18",
+    "convex": "^1.3.1",
     "expo": "~49.0.6",
     "expo-constants": "~14.4.2",
     "expo-linking": "~5.0.2",
     "expo-router": "2.0.0",
+    "expo-secure-store": "^12.5.0",
     "expo-status-bar": "~1.6.0",
     "nativewind": "^2.0.11",
     "react": "18.2.0",
@@ -39,7 +43,7 @@
     "@babel/core": "^7.22.9",
     "@faker-js/faker": "^8.0.2",
     "@types/react-native": "^0.72.2",
-    "react-native": "^0.72.3",
+    "react-native": "0.72.5",
     "react-native-web": "^0.19.7"
   },
   "private": true
