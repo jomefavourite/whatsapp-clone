@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Heading, Text } from './core';
+import { Box, Heading, Text } from '@gluestack-ui/themed';
 import { Feather, Ionicons } from '@expo/vector-icons';
 
 function Header({ name }: { name: string }) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, Heading, Text } from '../../../components';
+import { Box, Button, Heading, Text } from '@gluestack-ui/themed';
 // import { ScrollView } from 'react-native-gesture-handler';
 import { faker } from '@faker-js/faker/locale/en';
 import { FlatList, Image, ScrollView } from 'react-native';

@@ -1,33 +1,14 @@
 import { View, Text, Button } from 'react-native';
 import React from 'react';
 import SignInWithOAuth from '../../components/screen/SignInWithOAuth';
-import { useAuth } from '@clerk/clerk-expo';
-
-const SignOut = () => {
-  const { isLoaded, signOut } = useAuth();
-  if (!isLoaded) {
-    return null;
-  }
-  return (
-    <View>
-      <Button
-        title='Sign Out'
-        onPress={() => {
-          signOut();
-        }}
-      />
-    </View>
-  );
-};
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const login = () => {
   return (
-    <View>
+    <SafeAreaView className='p-3'>
       <Text>login</Text>
       <SignInWithOAuth />
-
-      <SignOut />
-    </View>
+    </SafeAreaView>
   );
 };
 

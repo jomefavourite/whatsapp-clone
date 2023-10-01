@@ -1,14 +1,15 @@
 import { Slot, Stack, useRouter, useSegments } from 'expo-router';
-import { GluestackUIProvider } from '../components';
-import { config } from '../gluestack-ui.config';
+// import { GluestackUIProvider } from '../components';
+// import { config } from '../gluestack-ui.config';
+import { GluestackUIProvider, config } from '@gluestack-ui/themed';
 import { StatusBar } from 'expo-status-bar';
 import { ConvexProvider, ConvexReactClient } from 'convex/react';
 import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
 import Constants from 'expo-constants';
 import * as SecureStore from 'expo-secure-store';
 import { useEffect } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import * as Linking from 'expo-linking';
+// import { SafeAreaView } from 'react-native-safe-area-context';
+// import * as Linking from 'expo-linking';
 
 // Linking.openURL('https://expo.dev');
 

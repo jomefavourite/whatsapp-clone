@@ -13,7 +13,7 @@ import {
 import { StatusBar } from 'expo-status-bar';
 // import { LinearGradient } from 'expo-linear-gradient';
 import { faker } from '@faker-js/faker/locale/de';
-import { Box, Button, Input } from '../../../../components';
+import { Box, Button, Input } from '@gluestack-ui/themed';
 import { Ionicons, Feather } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native';
 
