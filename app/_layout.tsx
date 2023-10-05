@@ -1,84 +1,56 @@
-import { Slot, Stack, useRouter, useSegments } from 'expo-router';
-// import { GluestackUIProvider } from '../components';
-// import { config } from '../gluestack-ui.config';
-import {
-  GluestackUIProvider,
-  StyledProvider,
-  config,
-} from '@gluestack-ui/themed';
-import { StatusBar } from 'expo-status-bar';
-import { ConvexProvider, ConvexReactClient } from 'convex/react';
-import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
-import Constants from 'expo-constants';
-import * as SecureStore from 'expo-secure-store';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { useFonts } from 'expo-font';
+import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
-import { config as configStyle } from '../gluestack-style.config';
-// import { SafeAreaView } from 'react-native-safe-area-context';
-// import * as Linking from 'expo-linking';
+import { useColorScheme } from 'react-native';
 
-// Linking.openURL('https://expo.dev');
+export {
+  // Catch any errors thrown by the Layout component.
+  ErrorBoundary,
+} from 'expo-router';
 
-// import './styles/global.css';
-
-const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL!, {
-  unsavedChangesWarning: false,
-});
-
-const tokenCache = {
-  async getToken(key: string) {
-    try {
-      return SecureStore.getItemAsync(key);
-    } catch (err) {
-      return null;
-    }
-  },
-  async saveToken(key: string, value: string) {
-    try {
-      return SecureStore.setItemAsync(key, value);
-    } catch (err) {
-      return;
-    }
-  },
+export const unstable_settings = {
+  // Ensure that reloading on `/modal` keeps a back button present.
+  initialRouteName: '(tabs)',
 };
 
-const InitialLayout = () => {
-  const { isLoaded, isSignedIn } = useAuth();
-  const segments = useSegments();
-  const router = useRouter();
-
-  // If the user is signed in, redirect them to the home page
-  // If the user is not signed in, redirect them to the login page
-  useEffect(() => {
-    if (!isLoaded) return;
-
-    // const inTabsGroup = segments[0] === '(auth)';
-
-    console.log(segments, 'segments');
-
-    if (isSignedIn) {
-      router.replace('/(auth)/chats');
-    } else if (!isSignedIn) {
-      router.replace('/(public)/login');
-    }
-  }, [isSignedIn]);
-
-  return <Slot />;
-};
+// Prevent the splash screen from auto-hiding before asset loading is complete.
+SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const [loaded, error] = useFonts({
+    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    ...FontAwesome.font,
+  });
+
+  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
+  useEffect(() => {
+    if (error) throw error;
+  }, [error]);
+
+  useEffect(() => {
+    if (loaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [loaded]);
+
+  if (!loaded) {
+    return null;
+  }
+
+  return <RootLayoutNav />;
+}
+
+function RootLayoutNav() {
+  const colorScheme = useColorScheme();
+
   return (
-    <ClerkProvider
-      tokenCache={tokenCache}
-      publishableKey={Constants.expoConfig.extra.clerkPublishableKey}
-    >
-      <ConvexProvider client={convex}>
-        <StyledProvider config={configStyle}>
-          <GluestackUIProvider config={config.theme}>
-            <StatusBar style='auto' />
-            <InitialLayout />
-          </GluestackUIProvider>
-        </StyledProvider>
-      </ConvexProvider>
-    </ClerkProvider>
+    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+      </Stack>
+    </ThemeProvider>
   );
 }
