@@ -1,13 +1,18 @@
 import { Slot, Stack, useRouter, useSegments } from 'expo-router';
 // import { GluestackUIProvider } from '../components';
 // import { config } from '../gluestack-ui.config';
-import { GluestackUIProvider, config } from '@gluestack-ui/themed';
+import {
+  GluestackUIProvider,
+  StyledProvider,
+  config,
+} from '@gluestack-ui/themed';
 import { StatusBar } from 'expo-status-bar';
 import { ConvexProvider, ConvexReactClient } from 'convex/react';
 import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
 import Constants from 'expo-constants';
 import * as SecureStore from 'expo-secure-store';
 import { useEffect } from 'react';
+import { config as configStyle } from '../gluestack-style.config';
 // import { SafeAreaView } from 'react-native-safe-area-context';
 // import * as Linking from 'expo-linking';
 
@@ -67,10 +72,12 @@ export default function RootLayout() {
       publishableKey={Constants.expoConfig.extra.clerkPublishableKey}
     >
       <ConvexProvider client={convex}>
-        <GluestackUIProvider config={config.theme}>
-          <StatusBar style='auto' />
-          <InitialLayout />
-        </GluestackUIProvider>
+        <StyledProvider config={configStyle}>
+          <GluestackUIProvider config={config.theme}>
+            <StatusBar style='auto' />
+            <InitialLayout />
+          </GluestackUIProvider>
+        </StyledProvider>
       </ConvexProvider>
     </ClerkProvider>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tabs } from 'expo-router';
+import { Tabs, useRouter } from 'expo-router';
 import Header from '../../../components/Header';
 import { Feather, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import {
@@ -14,6 +14,7 @@ import { useAuth } from '@clerk/clerk-expo';
 
 export default function TabsLayout() {
   const { isLoaded, signOut } = useAuth();
+  const router = useRouter();
   return (
     <Tabs
       screenOptions={{
@@ -51,6 +52,12 @@ export default function TabsLayout() {
                   );
                 }}
               >
+                <MenuItem onPress={() => router.push('/(auth)/new-group')}>
+                  <MenuItemLabel size='sm'>New group</MenuItemLabel>
+                </MenuItem>
+                <MenuItem onPress={() => router.push('/(auth)/settings')}>
+                  <MenuItemLabel size='sm'>Settings</MenuItemLabel>
+                </MenuItem>
                 <MenuItem
                   key='Logout'
                   textValue='Logout'
