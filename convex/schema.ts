@@ -15,4 +15,9 @@ export default defineSchema({
     name: v.string(),
     ownerId: v.id('users'),
   }),
+  userMessages: defineTable({
+    userId: v.id('users'),
+    message: v.string(),
+    file: v.optional(v.string()),
+  }),
 });

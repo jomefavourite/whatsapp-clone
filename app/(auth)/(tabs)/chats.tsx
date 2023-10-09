@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 // import { ScrollView } from 'react-native-gesture-handler';
 // import { faker } from '@faker-js/faker';
 import { FlatList, Image, ScrollView, View } from 'react-native';
@@ -6,14 +6,17 @@ import { Link } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { chatData } from '../../data';
 import { Text } from '@rneui/themed';
-import { useQuery } from 'convex/react';
+import { useConvex, useQuery } from 'convex/react';
 import { api } from '../../../convex/_generated/api';
 import { Doc } from '../../../convex/_generated/dataModel';
+import { useUser } from '@clerk/clerk-expo';
 
 type ChatData = typeof chatData;
 
 export default function Chats() {
-  const users = useQuery(api.user.getUsers);
+  const { user } = useUser();
+  const users = useQuery(api.user.getUsers, { id: user?.id! });
+
   return (
     <View style={{ flex: 1, backgroundColor: '#010101' }}>
       <StatusBar style='light' />
@@ -31,7 +34,9 @@ export default function Chats() {
 function ChatItems({ data }: { data: Doc<'users'> }) {
   return (
     <View style={{ flex: 1 }}>
-      <Link href={{ pathname: `/(chat)/${data._id}`, params: data }}>
+      <Link
+        href={{ pathname: '/(chat)/[id]', params: { id: data.id as string } }}
+      >
         <View
           style={{
             flexDirection: 'row',

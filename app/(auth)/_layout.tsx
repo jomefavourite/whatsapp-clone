@@ -38,6 +38,12 @@ const Layout = () => {
               title: 'New Group',
             }}
           />
+          <Stack.Screen
+            name='(chat)/[id]/index'
+            options={{
+              title: '',
+            }}
+          />
         </Stack>
       </MenuProvider>
     </>

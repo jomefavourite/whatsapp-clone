@@ -6,9 +6,11 @@ import { Doc } from '../../../convex/_generated/dataModel';
 import { Image } from 'react-native';
 import { FAB } from '@rneui/base';
 import { api } from '../../../convex/_generated/api';
+import { useUser } from '@clerk/clerk-expo';
 
 const CreateGroup = () => {
-  const users = useQuery(api.user.getUsers);
+  const { user } = useUser();
+  const users = useQuery(api.user.getUsers, { id: user?.id! });
   // const users = convex.query(api.user.getUsers)
 
   console.log(users, 'users');

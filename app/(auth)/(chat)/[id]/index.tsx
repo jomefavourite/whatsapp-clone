@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native';
-import React from 'react';
-import { useLocalSearchParams } from 'expo-router';
+import React, { useEffect } from 'react';
+import { useLocalSearchParams, useNavigation } from 'expo-router';
 
 import {
   FlatList,
@@ -15,8 +15,12 @@ import { StatusBar } from 'expo-status-bar';
 // import {  Button, Input } from '@gluestack-ui/themed';
 import { Ionicons, Feather } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native';
-import { Button, Input } from '@rneui/themed';
+import { Button, Icon, Input } from '@rneui/themed';
 import { faker } from '@faker-js/faker';
+import { useConvex } from 'convex/react';
+import { api } from '../../../../convex/_generated/api';
+import { Image } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const { width, height } = Dimensions.get('window');
 // const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
@@ -34,16 +38,45 @@ const data = [...Array(100).keys()].map((i) => ({
 //   uri: 'https://media.geeksforgeeks.org/wp-content/uploads/20220217151648/download3.png',
 // }
 export default function ChatPage() {
+  // const { chatId } = useLocalSearchParams();
   const [measures, setMeasures] = React.useState({ height });
   const scrollY = React.useRef(new Animated.Value(0)).current;
 
-  const { slug } = useLocalSearchParams();
+  const { id: chatId } = useLocalSearchParams();
 
-  console.log(slug);
+  console.log(chatId, 'chatId');
+  const convex = useConvex();
+  const navigation = useNavigation();
+
+  // Load group name and set header title
+  useEffect(() => {
+    const loadGroup = async () => {
+      const userInfo = await convex.query(api.user.getUserId, {
+        id: chatId as string,
+      });
+      console.log(userInfo);
+      navigation.setOptions({
+        headerTitle: `${userInfo?.firstName} ${userInfo?.lastName}`,
+        headerLeft: () => {
+          return (
+            <>
+              <Icon name='arrow-back' type='ionicons' color={'#fff'} />
+              <Image
+                source={{ uri: userInfo?.imageUrl }}
+                width={20}
+                height={20}
+                style={{ borderRadius: 50 }}
+              />
+            </>
+          );
+        },
+      });
+    };
+    loadGroup();
+  }, [chatId]);
 
   return (
     <>
-      <StatusBar style='auto' />
       <Animated.ScrollView
         style={{ backgroundColor: '#252525' }}
         onScroll={Animated.event(

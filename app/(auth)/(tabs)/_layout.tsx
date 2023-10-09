@@ -70,7 +70,9 @@ export default function TabsLayout() {
                   }}
                 >
                   <MenuOption
-                    onSelect={() => router.push('/(auth)/new-group')}
+                    onSelect={() =>
+                      router.push('/(auth)/(new-group)/new-group')
+                    }
                     text='New Group'
                   />
                   <MenuOption
