@@ -1,6 +1,7 @@
 import React from 'react';
 import { Stack } from 'expo-router';
 import { MenuProvider } from 'react-native-popup-menu';
+import { Icon } from '@rneui/themed';
 
 const Layout = () => {
   return (
@@ -18,7 +19,25 @@ const Layout = () => {
         >
           <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
           <Stack.Screen name='settings' options={{ title: 'Settings' }} />
-          <Stack.Screen name='new-group' options={{ title: 'New Group' }} />
+          <Stack.Screen
+            name='(new-group)/new-group'
+            options={{
+              title: 'New Group',
+              headerRight: () => {
+                return (
+                  <>
+                    <Icon name='search' color={'#fff'} />
+                  </>
+                );
+              },
+            }}
+          />
+          <Stack.Screen
+            name='(new-group)/create-group'
+            options={{
+              title: 'New Group',
+            }}
+          />
         </Stack>
       </MenuProvider>
     </>

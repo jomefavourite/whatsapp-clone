@@ -6,28 +6,32 @@ import { Link } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { chatData } from '../../data';
 import { Text } from '@rneui/themed';
+import { useQuery } from 'convex/react';
+import { api } from '../../../convex/_generated/api';
+import { Doc } from '../../../convex/_generated/dataModel';
 
 type ChatData = typeof chatData;
 
 export default function Chats() {
+  const users = useQuery(api.user.getUsers);
   return (
     <View style={{ flex: 1, backgroundColor: '#010101' }}>
       <StatusBar style='light' />
 
       <FlatList
         style={{ padding: 20, borderRadius: 20, backgroundColor: '#252525' }}
-        data={chatData}
+        data={users}
         renderItem={({ item }) => <ChatItems data={item} />}
-        keyExtractor={(data) => data.id}
+        keyExtractor={(data) => data._id}
       />
     </View>
   );
 }
 
-function ChatItems({ data }: { data: ChatData[0] }) {
+function ChatItems({ data }: { data: Doc<'users'> }) {
   return (
     <View style={{ flex: 1 }}>
-      <Link href={{ pathname: `/(chat)/${data.id}`, params: data }}>
+      <Link href={{ pathname: `/(chat)/${data._id}`, params: data }}>
         <View
           style={{
             flexDirection: 'row',
@@ -36,16 +40,18 @@ function ChatItems({ data }: { data: ChatData[0] }) {
           }}
         >
           <Image
-            source={{ uri: data.image }}
+            source={{ uri: data.imageUrl }}
             width={40}
             height={40}
             borderRadius={1000}
           />
           <View>
-            <Text style={{ color: '#eef1f4' }}>{data.name}</Text>
-            <Text style={{ color: '#77848c' }} numberOfLines={1}>
-              {data.lastMessage}
+            <Text style={{ color: '#eef1f4' }}>
+              {data.firstName} {data.lastName}
             </Text>
+            {/* <Text style={{ color: '#77848c' }} numberOfLines={1}>
+              {data.lastMessage}
+            </Text> */}
           </View>
         </View>
       </Link>

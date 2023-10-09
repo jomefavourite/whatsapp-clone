@@ -1,13 +1,13 @@
 import { View, Text } from 'react-native';
 import React from 'react';
-import { useConvex, useQuery } from 'convex/react';
-import { api } from '../../convex/_generated/api';
+import { useQuery } from 'convex/react';
 import { FlatList } from 'react-native-gesture-handler';
-import { Doc } from '../../convex/_generated/dataModel';
+import { Doc } from '../../../convex/_generated/dataModel';
 import { Image } from 'react-native';
+import { FAB } from '@rneui/base';
+import { api } from '../../../convex/_generated/api';
 
 const CreateGroup = () => {
-  const convex = useConvex();
   const users = useQuery(api.user.getUsers);
   // const users = convex.query(api.user.getUsers)
 
@@ -22,6 +22,13 @@ const CreateGroup = () => {
         data={users}
         renderItem={({ item }) => <ChatItems data={item} />}
         keyExtractor={(data) => data.id}
+      />
+
+      <FAB
+        visible={true}
+        placement='right'
+        upperCase
+        icon={{ name: 'arrow-left', color: 'white' }}
       />
     </View>
   );
