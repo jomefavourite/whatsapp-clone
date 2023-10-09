@@ -5,22 +5,9 @@ import { FlatList, Image, ScrollView, View } from 'react-native';
 import { Link } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { chatData } from '../../data';
-import { SignedOut } from '@clerk/clerk-expo';
 import { Text } from '@rneui/themed';
 
-// faker.seed(10);
-
 type ChatData = typeof chatData;
-
-// const chatData = [...Array(20).keys()].map((i) => ({
-//   id: faker.string.uuid(),
-//   name: `${faker.person.firstName()} ${faker.person.lastName()}`,
-//   date: faker.date.future().toISOString(),
-//   lastMessage: faker.lorem.paragraph(2),
-//   image: faker.image.url(),
-// }));
-
-// console.log(chatData);
 
 export default function Chats() {
   return (

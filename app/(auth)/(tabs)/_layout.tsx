@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Tabs, useRouter } from 'expo-router';
 import { Feather, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useAuth } from '@clerk/clerk-expo';
 import Header from '../../../components/Header';
+import { View } from 'react-native';
+import {
+  Menu,
+  MenuOption,
+  MenuOptions,
+  MenuProvider,
+  MenuTrigger,
+} from 'react-native-popup-menu';
 
 export default function TabsLayout() {
   const { isLoaded, signOut } = useAuth();
+
   const router = useRouter();
+
   return (
     <Tabs
       screenOptions={{
@@ -21,55 +31,63 @@ export default function TabsLayout() {
           flexDirection: 'column',
           justifyContent: 'space-between',
         },
-        headerRight: () => (
-          <>
-            {/* <View flexDirection='row' p={'$1.5'} gap={15}>
-              <Feather name='sun' size={24} color='#fff' />
-              <Ionicons name='search' size={24} color='#fff' />
-              <Ionicons name='camera-outline' size={24} color='#fff' />
-
-              <Menu
-                placement='bottom'
-                trigger={({ ...triggerProps }) => {
-                  return (
-                    <Button {...triggerProps}>
-                      <MaterialCommunityIcons
-                        name='dots-vertical'
-                        size={24}
-                        color='#fff'
-                      />
-                    
-                    </Button>
-                  );
-                }}
-              >
-                <MenuItem onPress={() => router.push('/(auth)/new-group')}>
-                  <MenuItemLabel size='sm'>New group</MenuItemLabel>
-                </MenuItem>
-                <MenuItem onPress={() => router.push('/(auth)/settings')}>
-                  <MenuItemLabel size='sm'>Settings</MenuItemLabel>
-                </MenuItem>
-                <MenuItem
-                  key='Logout'
-                  textValue='Logout'
-                  onPress={() => {
-                    signOut();
-                  }}
-                >
-                  <MenuItemLabel size='sm'>Logout</MenuItemLabel>
-                </MenuItem>
-              </Menu>
-            </View> */}
-          </>
-        ),
-
         tabBarStyle: {
           height: 30,
           justifyContent: 'center',
           alignItems: 'center',
           backgroundColor: '#010101',
         },
-        // tabBarBackground: () => <Text>sds</Text>,
+        headerRight: () => (
+          <>
+            <View style={{ flexDirection: 'row', padding: 12, gap: 15 }}>
+              <Feather name='sun' size={24} color='#fff' />
+              <Ionicons name='search' size={24} color='#fff' />
+              <Ionicons name='camera-outline' size={24} color='#fff' />
+
+              <Menu>
+                <MenuTrigger
+                  customStyles={{
+                    triggerWrapper: {
+                      // top: -20,
+                    },
+                  }}
+                >
+                  {/* <Entypo name="dots-three-vertical" size={24} color="black" /> */}
+                  <MaterialCommunityIcons
+                    name='dots-vertical'
+                    size={24}
+                    color='#fff'
+                  />
+                </MenuTrigger>
+                <MenuOptions
+                  customStyles={{
+                    optionsContainer: {
+                      // backgroundColor: 'green',
+                      padding: 5,
+                      borderRadius: 10,
+                      marginTop: 30,
+                    },
+                  }}
+                >
+                  <MenuOption
+                    onSelect={() => router.push('/(auth)/new-group')}
+                    text='New Group'
+                  />
+                  <MenuOption
+                    onSelect={() => router.push('/(auth)/settings')}
+                    text='Settings'
+                  />
+                  <MenuOption
+                    onSelect={() => {
+                      signOut();
+                    }}
+                    text='Logout'
+                  />
+                </MenuOptions>
+              </Menu>
+            </View>
+          </>
+        ),
       }}
     >
       <Tabs.Screen

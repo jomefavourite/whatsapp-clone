@@ -14,7 +14,7 @@ const login = () => {
     if (!isLoaded) return;
 
     if (isSignedIn) {
-      router.replace('/(auth)/chats');
+      router.replace('/(auth)/(tabs)/chats');
     }
   }, [isSignedIn]);
 

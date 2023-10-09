@@ -65,6 +65,13 @@ const settingDetails = [
 const SettingsPage = () => {
   const { user } = useUser();
 
+  console.log({
+    id: user?.id,
+    firstName: user?.firstName,
+    lastName: user?.lastName,
+    imageUrl: user?.imageUrl,
+  });
+
   return (
     <ScrollView style={{ padding: 16 }}>
       <View style={{ flexDirection: 'row', gap: 15 }}>
