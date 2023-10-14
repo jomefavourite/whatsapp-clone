@@ -11,6 +11,8 @@ import { ThemeProvider } from '@rneui/themed';
 import { theme } from '../utils/theme';
 import { api } from '../convex/_generated/api';
 import { Doc, Id } from '../convex/_generated/dataModel';
+import { GluestackUIProvider, Text, Box } from '@gluestack-ui/themed';
+import { config } from '@gluestack-ui/config';
 
 const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
@@ -62,7 +64,7 @@ const InitialLayout = () => {
         id: user?.id as string,
       });
 
-      console.log(userId?.firstName, 'userId');
+      // console.log(userId?.firstName, 'userId');
 
       if (userId?._id) {
       } else {
@@ -74,7 +76,7 @@ const InitialLayout = () => {
 
     // const inTabsGroup = segments[0] === '(auth)';
 
-    console.log(segments, 'segments');
+    // console.log(segments, 'segments');
 
     if (isSignedIn && user) {
       // saveUser(payload);
@@ -94,12 +96,14 @@ export default function RootLayout() {
       publishableKey={CLERK_PUBLISHABLE_KEY!}
     >
       <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
-        <SafeAreaProvider>
-          <ThemeProvider theme={theme}>
-            <StatusBar style='auto' />
-            <InitialLayout />
-          </ThemeProvider>
-        </SafeAreaProvider>
+        <GluestackUIProvider config={config}>
+          <SafeAreaProvider>
+            <ThemeProvider theme={theme}>
+              <StatusBar style='auto' />
+              <InitialLayout />
+            </ThemeProvider>
+          </SafeAreaProvider>
+        </GluestackUIProvider>
       </ConvexProviderWithClerk>
     </ClerkProvider>
   );
